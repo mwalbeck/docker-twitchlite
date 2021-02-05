@@ -1,6 +1,35 @@
 ---
 kind: pipeline
 type: docker
+name: lint
+
+steps:
+  - name: Lint Dockerfile
+    image: hadolint/hadolint
+    commands:
+      - hadolint Dockerfile
+    when:
+      status:
+        - failure
+        - success
+
+  - name: Lint entrypoint scripts
+    image: koalaman/shellcheck-alpine
+    commands:
+      - shellcheck entrypoint.sh
+    when:
+      status:
+        - failure
+        - success
+
+trigger:
+  event:
+    - pull_request
+    - push
+
+---
+kind: pipeline
+type: docker
 name: test
 
 steps:
@@ -14,6 +43,9 @@ steps:
 trigger:
   event:
     - pull_request
+
+depends_on:
+  - lint
 
 ---
 kind: pipeline
@@ -53,3 +85,6 @@ trigger:
     - master
   event:
     - push
+
+depends_on:
+  - lint
