@@ -1,8 +1,11 @@
 # docker-twitchlite
 
 [![Build Status](https://build.walbeck.it/api/badges/mwalbeck/docker-twitchlite/status.svg)](https://build.walbeck.it/mwalbeck/docker-twitchlite)
+![Docker Pulls](https://img.shields.io/docker/pulls/mwalbeck/twitchlite)
 
 Docker container for [twitchLite](https://github.com/mwalbeck/twitchlite). For more information about twitchLite please checkout the project page.
+
+You can find the image on [Docker Hub](https://hub.docker.com/r/mwalbeck/twitchlite) and the source code can be found [here](https://git.walbeck.it/mwalbeck/docker-twitchlite) with a mirror on [github](https://github.com/mwalbeck/docker-twitchlite).
 
 ## Usage
 
