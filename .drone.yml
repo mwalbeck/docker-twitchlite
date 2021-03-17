@@ -26,6 +26,9 @@ trigger:
   event:
     - pull_request
     - push
+  ref:
+    exclude:
+      - refs/heads/renovate/*
 
 ---
 kind: pipeline
@@ -53,6 +56,11 @@ type: docker
 name: build and publish
 
 steps:
+  - name: determine tags
+    image: mwalbeck/determine-docker-tags
+    environment:
+      CUSTOM_TAGS: latest
+
   - name: docker
     image: plugins/docker
     settings:
