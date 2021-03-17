@@ -8,15 +8,6 @@ RUN set -ex; \
     apt-get update; \
     apt-get install -y --no-install-recommends \
         gosu \
-    ; \
-    rm -rf /var/lib/apt/lists/*; \
-    \
-    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini";
-
-RUN set -ex; \
-    \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
         git \
     ; \
     mkdir -p /usr/share/twitchlite /var/www/twitchlite; \
@@ -24,7 +15,9 @@ RUN set -ex; \
     rm -r /usr/share/twitchlite/.git /usr/share/twitchlite/.gitignore;\
     \
     apt-get purge -y --auto-remove git; \
-    rm -rf /var/lib/apt/lists/*;
+    rm -rf /var/lib/apt/lists/*; \
+    \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini";
 
 COPY entrypoint.sh /entrypoint.sh
 
