@@ -44,6 +44,10 @@ steps:
     pull: if-not-exists
     settings:
       dockerfile: Dockerfile
+      username:
+        from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password
       repo: mwalbeck/twitchlite
       dry_run: true
 
@@ -106,6 +110,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: efe2539a557b739c6e5a3e05e384dda298d3efc6a0bd7a2b7163d62a7253976a
+hmac: 9f50222108acd6648037c65fbcb7f9e0db220d2d2b33dfab1e57db90a0a139fe
 
 ...
