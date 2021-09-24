@@ -1,4 +1,4 @@
-FROM php:8.0.11-fpm-buster@sha256:9d8cbe856bcf6952109ca0e824bfe30ee20460f9124d82f21c1563d161ad6617
+FROM php:8.0.11-fpm-buster@sha256:217aaf96f30362df8342442df1c22c680414a2ac84f34e556276f89313cfe028
 
 RUN set -ex; \
     \
