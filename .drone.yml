@@ -68,7 +68,7 @@ steps:
     image: mwalbeck/determine-docker-tags
     pull: if-not-exists
     environment:
-      CUSTOM_TAGS: latest
+      CUSTOM_TAGS: latest,kraken
 
   - name: docker
     image: plugins/docker
@@ -80,8 +80,6 @@ steps:
       password:
         from_secret: dockerhub_password
       repo: mwalbeck/twitchlite
-      tags:
-        - "latest"
   
   - name: notify
     image: plugins/matrix
@@ -110,6 +108,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 16b2523d00e48b4b9189e259485e74330c3c6a2013bbeb4d5587dcfa9dec4a8a
+hmac: 0998e49e260e737ad958c1215d9397f4bfcd6398dc456030f27283d875dbabc2
 
 ...
