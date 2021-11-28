@@ -9,7 +9,7 @@ steps:
     pull: if-not-exists
     commands:
       - hadolint --version
-      - hadolint Dockerfile
+      - hadolint */Dockerfile
     when:
       status:
         - failure
@@ -19,7 +19,8 @@ steps:
     image: koalaman/shellcheck-alpine
     pull: if-not-exists
     commands:
-      - shellcheck entrypoint.sh
+      - shellcheck --version
+      - shellcheck */entrypoint.sh
     when:
       status:
         - failure
@@ -36,14 +37,15 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: test
+name: kraken test
 
 steps:
   - name: docker
     image: plugins/docker
     pull: if-not-exists
     settings:
-      dockerfile: Dockerfile
+      dockerfile: kraken/Dockerfile
+      context: kraken/
       username:
         from_secret: dockerhub_username
       password:
@@ -61,7 +63,7 @@ depends_on:
 ---
 kind: pipeline
 type: docker
-name: build and publish
+name: kraken build and publish
 
 steps:
   - name: determine tags
@@ -74,13 +76,89 @@ steps:
     image: plugins/docker
     pull: if-not-exists
     settings:
-      dockerfile: Dockerfile
+      dockerfile: kraken/Dockerfile
+      context: kraken/
       username:
         from_secret: dockerhub_username
       password:
         from_secret: dockerhub_password
       repo: mwalbeck/twitchlite
-  
+
+  - name: notify
+    image: plugins/matrix
+    pull: if-not-exists
+    settings:
+      homeserver: https://matrix.mwalbeck.org
+      roomid:
+        from_secret: matrix_roomid
+      username:
+        from_secret: matrix_username
+      password:
+        from_secret: matrix_password
+    when:
+      status:
+        - success
+        - failure
+
+trigger:
+  branch:
+    - master
+  event:
+    - push
+
+depends_on:
+  - lint
+
+---
+kind: pipeline
+type: docker
+name: helix test
+
+steps:
+  - name: docker
+    image: plugins/docker
+    pull: if-not-exists
+    settings:
+      dockerfile: helix/Dockerfile
+      context: helix/
+      username:
+        from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password_ro
+      repo: mwalbeck/twitchlite
+      dry_run: true
+
+trigger:
+  event:
+    - pull_request
+
+depends_on:
+  - lint
+
+---
+kind: pipeline
+type: docker
+name: helix build and publish
+
+steps:
+  - name: determine tags
+    image: mwalbeck/determine-docker-tags
+    pull: if-not-exists
+    environment:
+      CUSTOM_TAGS: helix
+
+  - name: docker
+    image: plugins/docker
+    pull: if-not-exists
+    settings:
+      dockerfile: helix/Dockerfile
+      context: helix/
+      username:
+        from_secret: dockerhub_username
+      password:
+        from_secret: dockerhub_password
+      repo: mwalbeck/twitchlite
+
   - name: notify
     image: plugins/matrix
     pull: if-not-exists
@@ -108,6 +186,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 0998e49e260e737ad958c1215d9397f4bfcd6398dc456030f27283d875dbabc2
+hmac: 45249bed4784f3d27c76a91ee7ca34d04188c7bf576a129d280d2c157fa5aa14
 
 ...

@@ -11,7 +11,7 @@ RUN set -ex; \
         git \
     ; \
     mkdir -p /usr/share/twitchlite /var/www/twitchlite; \
-    git clone https://github.com/mwalbeck/twitchlite.git /usr/share/twitchlite; \
+    git clone --branch helix https://github.com/mwalbeck/twitchlite.git /usr/share/twitchlite; \
     rm -r /usr/share/twitchlite/.git /usr/share/twitchlite/.gitignore;\
     \
     apt-get purge -y --auto-remove git; \
