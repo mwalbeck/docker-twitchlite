@@ -70,7 +70,7 @@ steps:
     image: mwalbeck/determine-docker-tags
     pull: if-not-exists
     environment:
-      CUSTOM_TAGS: latest,kraken
+      CUSTOM_TAGS: kraken
 
   - name: docker
     image: plugins/docker
@@ -145,7 +145,7 @@ steps:
     image: mwalbeck/determine-docker-tags
     pull: if-not-exists
     environment:
-      CUSTOM_TAGS: helix
+      CUSTOM_TAGS: latest,helix
 
   - name: docker
     image: plugins/docker
@@ -187,5 +187,3 @@ depends_on:
 ---
 kind: signature
 hmac: 45249bed4784f3d27c76a91ee7ca34d04188c7bf576a129d280d2c157fa5aa14
-
-...

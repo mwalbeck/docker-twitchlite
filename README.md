@@ -7,6 +7,8 @@ Docker container for [twitchLite](https://github.com/mwalbeck/twitchlite). For m
 
 You can find the image on [Docker Hub](https://hub.docker.com/r/mwalbeck/twitchlite) and the source code can be found [here](https://git.walbeck.it/mwalbeck/docker-twitchlite) with a mirror on [github](https://github.com/mwalbeck/docker-twitchlite).
 
+The old version using the kraken api can be found under the kraken tag. The docker container will be updated until the kraken api is shutdown.
+
 ## Usage
 
 This is an php-fpm based image, which means it only runs an php-fpm process, and a separate webserver is needed to access twitchLite.
@@ -15,15 +17,16 @@ This is an php-fpm based image, which means it only runs an php-fpm process, and
 
 The docker container is intended to be configure through ENV variables, and you have the following options:
 
-|ENV VAR|default|allowed|description|
-|------|--------|-------|-----------|
-|UID|1000|Any UID|The user id the container runs as|
-|GID|1000|Any GID|The group id the container runs as|
-|OAUTH_TOKEN| - | - |Your twitch api v5 token|
-|ONLY_FOLLOWED_DEFAULT|false|true or false|If only channels you follow should be shown by default|
-|DEFAULT_LIMIT|25|1-100|How many livestreams to show at once|
-|GET_TOP_GAMES|false|true or false|If a list of the currently most played games should be retrieved for autocompletion|
-|TOP_GAMES_LIMIT|10|1-100|How many of the currently most played games should be retrieved|
+| ENV VAR               | default | allowed       | description                                                                         |
+| --------------------- | ------- | ------------- | ----------------------------------------------------------------------------------- |
+| UID                   | 1000    | Any UID       | The user id the container runs as                                                   |
+| GID                   | 1000    | Any GID       | The group id the container runs as                                                  |
+| OAUTH_TOKEN           | -       | -             | Your twitch oauth token                                                             |
+| USER_ID               | -       | -             | Your twitch user id                                                                 |
+| ONLY_FOLLOWED_DEFAULT | false   | true or false | If only channels you follow should be shown by default                              |
+| DEFAULT_LIMIT         | 25      | 1-100         | How many livestreams to show at once                                                |
+| GET_TOP_GAMES         | true    | true or false | If a list of the currently most played games should be retrieved for autocompletion |
+| TOP_GAMES_LIMIT       | 100     | 1-100         | How many of the currently most played games should be retrieved                     |
 
 ### Webserver
 
@@ -56,6 +59,7 @@ services:
       UID: "1000"
       GID: "1000"
       OAUTH_TOKEN: "YOUR-OAUTH-TOKEN-HERE"
+      USER_ID: "YOUR-USER-ID-HERE"
       ONLY_FOLLOWED_DEFAULT: "false"
       DEFAULT_LIMIT: "25"
       GET_TOP_GAMES: "true"
