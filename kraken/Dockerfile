@@ -1,4 +1,4 @@
-FROM php:8.0.14-fpm-bullseye@sha256:a0a0df5711e1caef1120ed9206fce24d3ea8549fc6e066104a1bc0175226e2f0
+FROM php:8.0.15-fpm-bullseye@sha256:58930dca8a34e78be16a80c91bf32fd5358abdddd7990fa61a4c281c5ed871ea
 
 RUN set -ex; \
     \
