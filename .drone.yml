@@ -37,81 +37,6 @@ trigger:
 ---
 kind: pipeline
 type: docker
-name: kraken test
-
-steps:
-  - name: docker
-    image: plugins/docker
-    pull: if-not-exists
-    settings:
-      dockerfile: kraken/Dockerfile
-      context: kraken/
-      username:
-        from_secret: dockerhub_username
-      password:
-        from_secret: dockerhub_password_ro
-      repo: mwalbeck/twitchlite
-      dry_run: true
-
-trigger:
-  event:
-    - pull_request
-
-depends_on:
-  - lint
-
----
-kind: pipeline
-type: docker
-name: kraken build and publish
-
-steps:
-  - name: determine tags
-    image: mwalbeck/determine-docker-tags
-    pull: if-not-exists
-    environment:
-      CUSTOM_TAGS: kraken
-
-  - name: docker
-    image: plugins/docker
-    pull: if-not-exists
-    settings:
-      dockerfile: kraken/Dockerfile
-      context: kraken/
-      username:
-        from_secret: dockerhub_username
-      password:
-        from_secret: dockerhub_password
-      repo: mwalbeck/twitchlite
-
-  - name: notify
-    image: plugins/matrix
-    pull: if-not-exists
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
-    when:
-      status:
-        - success
-        - failure
-
-trigger:
-  branch:
-    - master
-  event:
-    - push
-
-depends_on:
-  - lint
-
----
-kind: pipeline
-type: docker
 name: helix test
 
 steps:
@@ -186,6 +111,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 6dc475e00a43c02ba0b2cd6e38b31fd740332c1dd99003a6e8e88f31e0fa46b1
+hmac: 33a3b565e9c35590be3ca4f7d0411bd89137ad349784e24f4b9ee9fa5c575434
 
 ...
