@@ -84,22 +84,6 @@ steps:
         from_secret: dockerhub_password
       repo: mwalbeck/twitchlite
 
-  - name: notify
-    image: plugins/matrix
-    pull: if-not-exists
-    settings:
-      homeserver: https://matrix.mwalbeck.org
-      roomid:
-        from_secret: matrix_roomid
-      username:
-        from_secret: matrix_username
-      password:
-        from_secret: matrix_password
-    when:
-      status:
-        - success
-        - failure
-
 trigger:
   branch:
     - master
@@ -111,6 +95,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: abb4b5dee8bb3b8730241a95d908ca741f3cffd00c5fc524d6dfffc254acd1d7
+hmac: 871b56fbed6c3caff20bac9201327fd51af11ab41de39d70d8bc6933de429738
 
 ...
