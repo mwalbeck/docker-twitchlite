@@ -37,5 +37,6 @@ jobs:
       - name: Build and push
         uses: https://github.com/docker/build-push-action@v6
         with:
+          context: helix
           push: true
           tags: ${{ steps.tags.outputs.tags }}
