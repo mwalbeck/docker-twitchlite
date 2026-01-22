@@ -1,4 +1,4 @@
-FROM php:8.4.11-fpm-bullseye@sha256:990ee906e25f852f3c384b41d78b4e1a777376ef11e16e1c4cdd8d1cf7d2e76e
+FROM php:8.4.11-fpm-trixie
 
 RUN set -ex; \
     \
@@ -11,7 +11,7 @@ RUN set -ex; \
         git \
     ; \
     mkdir -p /usr/share/twitchlite /var/www/twitchlite; \
-    git clone --branch helix https://github.com/mwalbeck/twitchlite.git /usr/share/twitchlite; \
+    git clone --branch helix https://git.walbeck.it/mwalbeck/twitchlite.git /usr/share/twitchlite; \
     rm -r /usr/share/twitchlite/.git /usr/share/twitchlite/.gitignore;\
     \
     apt-get purge -y --auto-remove git; \
