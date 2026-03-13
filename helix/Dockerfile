@@ -1,4 +1,4 @@
-FROM php:8.4.19-fpm-trixie@sha256:efa342d8875cbf40b1d61400b4dc6e648e23cd521697d48672f907030d9791f4
+FROM php:8.4.19-fpm-trixie@sha256:f333d6afd529b146db59214ac63e9da75c3649d4c625ae34380f25b2a6485c7b
 
 RUN set -ex; \
     \
